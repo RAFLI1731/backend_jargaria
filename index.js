@@ -39,8 +39,8 @@ mongosee
   })
   .then(() => {
     console.log("Berhasil Konek ke mongodb");
-    const port = 3000;
-    app.listen(port, () => {
+    const PORT = process.env.PORT || 4000;
+    app.listen(PORT, () => {
       console.log("Server Berjalan di Port");
     });
   })
