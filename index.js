@@ -20,18 +20,6 @@ app.use(
   })
 );
 
-mongosee
-  .connect(dbConfig.mongoUrl, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-  })
-  .then(() => {
-    console.log("Berhasil Konek ke mongodb");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 app.get("/", function (req, res) {
   res.send("Selamat Datang");
 });
@@ -44,7 +32,18 @@ app.use("/transaksi", require("./routes/transaksiRoutes"));
 
 app.use("/gambar-barang", express.static("public/images"));
 
-const port = 3000;
-app.listen(port, () => {
-  console.log("Server Berjalan di Port");
-});
+mongosee
+  .connect(dbConfig.mongoUrl, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+  })
+  .then(() => {
+    console.log("Berhasil Konek ke mongodb");
+    const port = 3000;
+    app.listen(port, () => {
+      console.log("Server Berjalan di Port");
+    });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
